@@ -33,7 +33,7 @@ class TodoAddBox extends StatelessWidget {
             ),
             MaterialButton(
               onPressed: () {
-                if (todoModel != null) {
+                if (todoModel != null && tp.controller.text.isNotEmpty) {
                   tp.editTodoItem(todoModel!, context);
                 } else {
                   tp.addNewTodoItem(context);

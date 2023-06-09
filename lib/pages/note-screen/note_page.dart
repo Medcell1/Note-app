@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:note/pages/note-screen/note_search_page.dart';
 import 'package:note/provider/note_provider.dart';
@@ -70,19 +71,31 @@ class _NotePageState extends State<NotePage> {
                       ],
                     ),
                     np.noteList.isNotEmpty
-                        ? ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              final currentNote = np.noteList[index];
-                              return NoteTile(
-                                  colors: np.colors[index % np.colors.length],
-                                  noteModel: currentNote,
-                                  titleNote: currentNote.title!,
-                                  contentNote: currentNote.content!,
-                                  date: currentNote.dateTime);
-                            },
-                            itemCount: np.noteList.length,
+                        ? AnimationLimiter(
+                            child: ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                final currentNote = np.noteList[index];
+                                return AnimationConfiguration.staggeredList(
+                                  position: index,
+                                  duration: Duration(milliseconds: 345),
+                                  child: SlideAnimation(
+                                    verticalOffset: 50,
+                                    child: FadeInAnimation(
+                                      child: NoteTile(
+                                          colors: np
+                                              .colors[index % np.colors.length],
+                                          noteModel: currentNote,
+                                          titleNote: currentNote.title!,
+                                          contentNote: currentNote.content!,
+                                          date: currentNote.dateTime),
+                                    ),
+                                  ),
+                                );
+                              },
+                              itemCount: np.noteList.length,
+                            ),
                           )
                         : Center(
                             child: Container(

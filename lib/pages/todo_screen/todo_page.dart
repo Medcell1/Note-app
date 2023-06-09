@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:note/pages/todo_screen/todo_search_page.dart';
 import 'package:note/provider/note_provider.dart';
@@ -65,23 +66,34 @@ class _TodoPageState extends State<TodoPage> {
                       ],
                     ),
                     tp.todoList.isNotEmpty
-                        ? ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: tp.todoList.length,
-                            itemBuilder: (context, index) {
-                              final currentTodo = tp.todoList[index];
-                              return TodoTile(
-                                color: noteProvider
-                                    .colors[index % noteProvider.colors.length],
-                                todoTitle: currentTodo.taskTitle!,
-                                todoCompleted: currentTodo.isChecked!,
-                                todoModel: currentTodo,
-                                onChanged: (value) {
-                                  tp.toggleDone(index, currentTodo);
-                                },
-                              );
-                            })
+                        ? AnimationLimiter(
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: tp.todoList.length,
+                                itemBuilder: (context, index) {
+                                  final currentTodo = tp.todoList[index];
+                                  return AnimationConfiguration.staggeredList(
+                                    position: index,
+                                    duration: Duration(milliseconds: 345),
+                                    child: SlideAnimation(
+                                      verticalOffset: 50,
+                                      child: FadeInAnimation(
+                                        child: TodoTile(
+                                          color: noteProvider.colors[index %
+                                              noteProvider.colors.length],
+                                          todoTitle: currentTodo.taskTitle!,
+                                          todoCompleted: currentTodo.isChecked!,
+                                          todoModel: currentTodo,
+                                          onChanged: (value) {
+                                            tp.toggleDone(index, currentTodo);
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                          )
                         : Center(
                             child: Container(
                               padding: EdgeInsets.only(top: 320),
@@ -94,7 +106,7 @@ class _TodoPageState extends State<TodoPage> {
                                 ),
                               ),
                             ),
-                          ),
+                          )
                   ],
                 ),
               ),

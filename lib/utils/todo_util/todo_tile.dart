@@ -69,6 +69,19 @@ class TodoTile extends StatelessWidget {
                         fontSize: 16,
                       ),
                     ),
+                    Expanded(
+                      child: Text(
+                        todoTitle,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          decoration:
+                              todoCompleted ? TextDecoration.lineThrough : null,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

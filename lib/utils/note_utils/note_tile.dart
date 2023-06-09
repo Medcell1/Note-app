@@ -2,6 +2,7 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:note/pages/note-screen/input_note_page.dart';
 import 'package:note/provider/note_provider.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/note_model.dart';
@@ -40,17 +41,15 @@ class NoteTile extends StatelessWidget {
               noteProvider.contentController.text = noteModel!.content!;
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return InputNotePage(
+                PageTransition(
+                    child: InputNotePage(
                       noteModel: noteModel,
-                    );
-                  },
-                ),
+                    ),
+                    type: PageTransitionType.topToBottom),
               );
             },
             child: Container(
-              height: 85,
+              height: 95,
               decoration: BoxDecoration(
                 color: colors,
                 borderRadius: BorderRadius.circular(12),
