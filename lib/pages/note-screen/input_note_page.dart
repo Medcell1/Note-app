@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 class InputNotePage extends StatelessWidget {
   final dynamic noteModel;
+
   const InputNotePage({Key? key, this.noteModel}) : super(key: key);
 
   @override
@@ -64,7 +65,9 @@ class InputNotePage extends StatelessWidget {
                         },
                         child: Container(
                           margin: const EdgeInsets.only(right: 20),
-                          child: const Center(child: Icon(Icons.check)),
+                          child:  Center(
+                            child: Icon(Icons.check),
+                          ),
                         ),
                       ),
                     ],
@@ -77,8 +80,8 @@ class InputNotePage extends StatelessWidget {
                     child: Column(
                       children: [
                         TextField(
-                          style:
-                              const TextStyle(fontSize: 20, fontFamily: 'Roboto'),
+                          style: const TextStyle(
+                              fontSize: 20, fontFamily: 'Roboto'),
                           keyboardType: TextInputType.visiblePassword,
                           controller: np.titleController,
                           maxLines: 2,
@@ -114,7 +117,8 @@ class InputNotePage extends StatelessWidget {
                               am
                             ],
                           ),
-                          style: TextStyle(color: Colors.black.withOpacity(0.5)),
+                          style:
+                              TextStyle(color: Colors.black.withOpacity(0.5)),
                         ),
                         const SizedBox(
                           height: 10,

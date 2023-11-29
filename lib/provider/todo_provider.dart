@@ -8,13 +8,8 @@ import '../utils/todo_util/todo_delete_box.dart';
 
 class TodoProvider extends ChangeNotifier {
   TextEditingController controller = TextEditingController();
+  TextEditingController editingController = TextEditingController();
   bool isChecked = false;
-
-  // checkBoxTapped(bool value , ) {
-  //   todoList[index].isChecked = value;
-  //   notifyListeners();
-  // }
-
   toggleDone(int index, TodoModel todoModel) {
     final newTodo = todoModel..isChecked = !todoModel.isChecked!;
 

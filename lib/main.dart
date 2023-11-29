@@ -21,7 +21,6 @@ void main() async {
   var todoDb = await Hive.openBox('Todo_Database');
   boxList.add(habitDb);
   boxList.add(todoDb);
-  // Hive.registerAdapter(NoteModelAdapter());
   Hive.registerAdapter(NoteModelAdapter());
   Hive.registerAdapter(TodoModelAdapter());
   await Hive.openBox<NoteModel>('noteBox');

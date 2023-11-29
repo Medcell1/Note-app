@@ -12,6 +12,7 @@ class TodoTile extends StatelessWidget {
   final dynamic onChanged;
   final TodoModel? todoModel;
   final Color color;
+
   const TodoTile({
     Key? key,
     required this.todoTitle,
@@ -25,7 +26,7 @@ class TodoTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer2<TodoProvider, NoteProvider>(
       builder: (context, tp, np, child) {
-        return GestureDetector(
+      return GestureDetector(
           onLongPress: () {
             tp.deleteNoteLists(todoModel!, context);
           },
@@ -34,12 +35,13 @@ class TodoTile extends StatelessWidget {
                 Provider.of<TodoProvider>(context, listen: false);
             todoProvider.controller.text = todoModel!.taskTitle!;
             showDialog(
-                context: context,
-                builder: (context) {
-                  return TodoAddBox(
-                    todoModel: todoModel,
-                  );
-                });
+              context: context,
+              builder: (context) {
+                return TodoAddBox(
+                  todoModel: todoModel,
+                );
+              },
+            );
           },
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -57,29 +59,19 @@ class TodoTile extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Checkbox(value: todoCompleted, onChanged: onChanged),
+                    Checkbox(
+                      value: todoCompleted,
+                      onChanged: onChanged,
+                    ),
                     Text(
                       todoTitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        decoration:
-                            todoCompleted ? TextDecoration.lineThrough : null,
+                        decoration: todoCompleted?TextDecoration.lineThrough : null,
                         fontWeight: FontWeight.bold,
+                        color: Colors.black,
                         fontSize: 16,
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        todoTitle,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          decoration:
-                              todoCompleted ? TextDecoration.lineThrough : null,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
                       ),
                     ),
                   ],
